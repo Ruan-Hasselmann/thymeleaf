@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Formulário e Tabela</title>
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+</head>
+<body>
+<h1>Adicionar Tarefa</h1>
+<form method="post" action="/createtasks">
+    <label for="descricao">Descrição:</label>
+    <input type="text" id="descricao" name="descricao" required><br><br>
+
+    <label for="data">Data:</label>
+    <input type="date" id="data" name="data" required><br><br>
+
+    <button type="submit">Adicionar</button>
+</form>
+
+<h1>Tarefas</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Descrição</th>
+        <th>Data</th>
+        <th>Ação</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="task : ${tasks}">
+        <td th:text="${task.id}"></td>
+        <td th:text="${task.descricao}"></td>
+        <td th:text="${task.data}"></td>
+        <td>
+            <form method="post" action="/deletetasks/{id}">
+                <input type="hidden" name="id" th:value="${task.id}">
+                <button type="submit">Apagar</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
